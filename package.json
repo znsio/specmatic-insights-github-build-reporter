@@ -1,0 +1,31 @@
+{
+  "name": "specmatic-insights-github-build-reporter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": "dist/src/index.js",
+  "scripts": {
+    "lint": "eslint \"./**/*.ts\" --cache",
+    "build": "tsc",
+    "start": "ts-node src/index.ts",
+    "prepare": "husky install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "prettier": "^3.2.5",
+    "yargs": "^15.4.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.9",
+    "@types/yargs": "^15.0.14",
+    "eslint": "^8.52.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-rakeshpai": "^1.0.4",
+    "husky": "^8.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}
