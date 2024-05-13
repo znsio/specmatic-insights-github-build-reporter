@@ -1,6 +1,6 @@
 # Specmatic Insights Github Build Reporter
 
-This package provides functionality for reporting Specmatic coverage, stub usage, and central repository metrics for Github workflow build and send it to Insights.
+This package runs as part of your CI pipeline to ship [Specmatic](https://specmatic.in/) reports to [Specmatic Insights](https://insights.specmatic.in/).
 
 ## Installation
 
