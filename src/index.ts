@@ -20,14 +20,6 @@ const postToSpecmaticInsights = async (
     rejectUnauthorized: !noVerify,
   });
 
-  // # TODO: How to handle the Azure build report? Do we keep both azure-build-report and github-build-report?
-  // const response = await fetch(`${url.origin}/api/azure-build-report`, {
-  //   method: "POST",
-  //   headers: { "Content-Type": "application/json" },
-  //   body: JSON.stringify(report),
-  //   ...(url.protocol === "https:" && noVerify ? { agent: httpsAgent } : {}),
-  // });
-
   const response = await fetch(`${url.origin}/api/github-build-report`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

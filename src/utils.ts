@@ -1,5 +1,6 @@
 import fs from "fs";
 import { resolve } from "path/posix";
+import { z } from "zod";
 
 export const logInfoStep = (...details: unknown[]) => {
   // eslint-disable-next-line no-console
@@ -26,5 +27,15 @@ export const safelyReadFile = (description: string, path?: string) => {
     return readFile(path);
   } catch (e) {
     logErrorStep(`Error reading ${description}: ${path}`, e);
+  }
+};
+
+export const readEnvVar = (name: string) => {
+  const value = process.env[name];
+  try {
+    return z.string().parse(value);
+  } catch (e) {
+    logErrorStep(`Couldn't read environment variable: ${name}`);
+    throw new Error(`Couldn't read environment variable: ${name}`);
   }
 };

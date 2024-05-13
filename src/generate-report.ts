@@ -5,17 +5,7 @@ import type {
   SpecmaticCoverageReport,
   SpecmaticStubUsageReport,
 } from "./specmatic/types";
-import { logErrorStep } from "./utils";
-
-const readEnvVar = (name: string) => {
-  const value = process.env[name];
-  try {
-    return z.string().parse(value);
-  } catch (e) {
-    logErrorStep(`Couldn't read environment variable: ${name}`);
-    throw new Error(`Couldn't read environment variable: ${name}`);
-  }
-};
+import { logErrorStep, readEnvVar } from "./utils";
 
 // This is only partially validating the response, but it's good enough for now
 const githubRunResponseParser = z.object({
@@ -78,6 +68,7 @@ export default async ({
   }
 
   return {
+    orgId: readEnvVar("GITHUB_ORG_ID"),
     branch: workflowDetails.head_branch,
     branchName: workflowDetails.head_branch,
     buildDefinitionId: workflowDetails.workflow_id.toString(),

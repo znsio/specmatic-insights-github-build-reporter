@@ -30,9 +30,6 @@ const specmaticCoverageReportForHTTP = z.object({
 
 const specmaticCoverageForProtocol =
   specmaticCoverageReportForHTTP; /* Add more here */
-// .extend({
-//   specId: z.string(), // Not coming from the report, we're adding this for easy querying
-// });
 
 export const coverageValidator = z.array(
   specmaticSource.merge(specmaticCoverageForProtocol)
@@ -54,9 +51,6 @@ const specmaticStubUsageForHTTP = z.object({
 
 const specmaticStubUsageForProtocol =
   specmaticStubUsageForHTTP; /* Add more here */
-// .extend({
-//   specId: z.string(), // Not coming from the report, we're adding this for easy querying
-// });
 
 export const stubUsageValidator = z.array(
   specmaticSource.merge(specmaticStubUsageForProtocol)
@@ -78,9 +72,6 @@ const specmaticCentralRepoReportSpecForHTTP = z.object({
 
 export const specmaticCentralRepoReportSpecForProtocol =
   specmaticCentralRepoReportSpecForHTTP; /* Add more here */
-// .extend({
-//   specId: z.string(), // Not coming from the report, we're adding this for easy querying
-// });
 
 const specmaticCentralRepoReportSpec = z.object({
   specifications: z.array(

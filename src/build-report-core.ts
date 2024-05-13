@@ -6,6 +6,7 @@ import {
 } from "./specmatic/types";
 
 export const buildReportCoreValidator = z.object({
+  orgId: z.string(),
   repo: z.string(),
   repoId: z.string(),
   repoUrl: z.string(),
@@ -15,11 +16,8 @@ export const buildReportCoreValidator = z.object({
   buildDefinitionId: z.string(),
   createdAt: z.date(),
   specmaticConfigPath: z.string().optional(),
-  // specmaticCoverage: specmaticCoverageReportValidator.optional(),
   specmaticCoverage: coverageValidator.optional(),
-  // specmaticStubUsage: specmaticStubUsageReportValidator.optional(),
   specmaticStubUsage: stubUsageValidator.optional(),
-  // specmaticCentralRepoReport: specmaticCentralRepoReportValidator.optional(),
   specmaticCentralRepoReport: z
     .array(
       specmaticCentralRepoReportSpecForProtocol.extend({
