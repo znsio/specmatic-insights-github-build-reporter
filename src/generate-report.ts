@@ -68,9 +68,9 @@ export default async ({
   }
 
   return {
-    orgId: readEnvVar("GITHUB_ORG_ID"),
-    branch: workflowDetails.head_branch,
-    branchName: workflowDetails.head_branch,
+    orgId: readEnvVar("SPECMATIC_ORG_ID"), 
+    branch: readEnvVar("GITHUB_REF"),
+    branchName: readEnvVar("GITHUB_REF_NAME"),
     buildDefinitionId: workflowDetails.workflow_id.toString(),
     buildId: workflowDetails.id.toString(),
     repo: workflowDetails.repository.name,
