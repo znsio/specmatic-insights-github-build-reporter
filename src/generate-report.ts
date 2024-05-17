@@ -73,7 +73,7 @@ export default async ({
     branchName: readEnvVar("GITHUB_REF_NAME"),
     buildDefinitionId: workflowDetails.workflow_id.toString(),
     buildId: readEnvVar("GITHUB_RUN_ID"),
-    repo: readEnvVar("GITHUB_REPOSITORY").replace(`${readEnvVar("GITHUB_OWNER_NAME")}/`, ''),
+    repo: readEnvVar("GITHUB_REPOSITORY").replace(`${readEnvVar("GITHUB_REPOSITORY_OWNER")}/`, ''),
     repoId: readEnvVar("GITHUB_REPOSITORY_ID"),
     repoUrl: `${readEnvVar("GITHUB_SERVER_URL")}/${readEnvVar("GITHUB_REPOSITORY")}`,
     createdAt: new Date(workflowDetails.created_at),
