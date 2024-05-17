@@ -60,7 +60,7 @@ export default async ({
   specmaticStubUsage?: SpecmaticStubUsageReport | undefined;
   specmaticCoverage?: SpecmaticCoverageReport | undefined;
 }): Promise<BuildReportCore> => {
-  const workflowDetails = readEnvVar("GITHUB_TOKEN") ? (await getWorkflowDetails()) : {workflow_id : readEnvVar("GITHUB_WORKFLOW_ID"), created_at: new Date().toISOString()};
+  const workflowDetails = process.env.GITHUB_TOKEN ? (await getWorkflowDetails()) : {workflow_id : readEnvVar("GITHUB_WORKFLOW_ID"), created_at: new Date().toISOString()};
 
   if (typeof workflowDetails === "string") {
     logErrorStep(workflowDetails);
