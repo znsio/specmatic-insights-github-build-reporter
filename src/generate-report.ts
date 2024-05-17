@@ -60,7 +60,7 @@ export default async ({
   specmaticStubUsage?: SpecmaticStubUsageReport | undefined;
   specmaticCoverage?: SpecmaticCoverageReport | undefined;
 }): Promise<BuildReportCore> => {
-  const workflowDetails = await getWorkflowDetails();
+  const workflowDetails = readEnvVar("GITHUB_TOKEN") ? (await getWorkflowDetails()) : {workflow_id : readEnvVar("GITHUB_WORKFLOW_ID"), created_at: new Date().toISOString()};
 
   if (typeof workflowDetails === "string") {
     logErrorStep(workflowDetails);
@@ -72,10 +72,10 @@ export default async ({
     branch: readEnvVar("GITHUB_REF"),
     branchName: readEnvVar("GITHUB_REF_NAME"),
     buildDefinitionId: workflowDetails.workflow_id.toString(),
-    buildId: workflowDetails.id.toString(),
-    repo: workflowDetails.repository.name,
-    repoId: workflowDetails.repository.id.toString(),
-    repoUrl: workflowDetails.repository.html_url,
+    buildId: readEnvVar("GITHUB_RUN_ID"),
+    repo: readEnvVar("GITHUB_REPOSITORY").replace(`${readEnvVar("GITHUB_OWNER_NAME")}/`, ''),
+    repoId: readEnvVar("GITHUB_REPOSITORY_ID"),
+    repoUrl: `${readEnvVar("GITHUB_SERVER_URL")}/${readEnvVar("GITHUB_REPOSITORY")}`,
     createdAt: new Date(workflowDetails.created_at),
     specmaticConfigPath:
       specmaticStubUsage?.specmaticConfigPath ||
