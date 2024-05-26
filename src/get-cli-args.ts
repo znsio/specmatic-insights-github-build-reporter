@@ -1,6 +1,8 @@
 import yargs from "yargs/yargs";
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 import { URL } from "url";
+import fs from 'fs';
+import path from 'path';
 
 const ensureValidUrl = (url: string, key: string) => {
   try {
@@ -19,6 +21,12 @@ const parseCliArgs = (cliArgs: string[]) => {
       demandOption: true,
       description: "Specmatic Insights host",
       group: "Specmatic Insights",
+    })
+    .option("srd", {
+      alias: "specmatic-reports-dir",
+      type: "string",
+      description: "The path to the Specmatic reports directory",
+      group: "Specmatic",
     })
     .option("sc", {
       alias: "specmatic-coverage",
@@ -52,21 +60,45 @@ const parseCliArgs = (cliArgs: string[]) => {
     })
     .example([
       [
-        "npx specmatic-insights-build-reporter --specmatic-insights-host=<SPECMATIC_INSIGHTS_HOST_HTTP_URL>",
+        "npx specmatic-insights-github-build-reporter --specmatic-insights-host=<SPECMATIC_INSIGHTS_HOST_HTTP_URL>" + 
+          " --specmatic-reports-dir=<SPECMATIC_REPORTS_DIR_PATH>",
       ],
       [
-        "npx specmatic-insights-build-reporter --specmatic-insights-host=<SPECMATIC_INSIGHTS_HOST_HTTP_URL>" +
+        "npx specmatic-insights-github-build-reporter --specmatic-insights-host=<SPECMATIC_INSIGHTS_HOST_HTTP_URL>" +
           " --specmatic-coverage=<SPECMATIC_COVERAGE_REPORT_PATH>",
       ],
       [
-        "npx specmatic-insights-build-reporter --specmatic-insights-host=<SPECMATIC_INSIGHTS_HOST_HTTP_URL>" +
+        "npx specmatic-insights-github-build-reporter --specmatic-insights-host=<SPECMATIC_INSIGHTS_HOST_HTTP_URL>" +
           " --specmatic-central-repo-report=<SPECMATIC_CENTRAL_REPO_REPORT_PATH>",
       ],
+      [
+        "npx specmatic-insights-github-build-reporter --specmatic-insights-host=<SPECMATIC_INSIGHTS_HOST_HTTP_URL>" +
+          " --specmatic-stub-usage=<SPECMATIC_STUB_USAGE_REPORT_PATH>",
+      ]
     ])
     .check((parsedArgs) => {
       ensureValidUrl(parsedArgs.sih, "specmatic-insights-host");
       return true;
     }).argv;
+
+  if(parsed.srd) {
+    const reportsDir = parsed.srd;
+    const files = fs.readdirSync(reportsDir);
+
+    const coverageReport = files.find(file => file.includes('coverage_report.json'));
+    const stubUsageReport = files.find(file => file.includes('stub_usage_report.json'));
+    const centralRepoReport = files.find(file => file.includes('central_contract_repo_report.json'));
+
+    if (coverageReport) {
+      parsed.sc = path.join(reportsDir, coverageReport);
+    }
+    if (stubUsageReport) {
+      parsed.ss = path.join(reportsDir, stubUsageReport);
+    }
+    if (centralRepoReport) {
+      parsed.scr = path.join(reportsDir, centralRepoReport);
+    }
+  }
 
   return {
     specmaticInsightsHost: parsed.sih,
