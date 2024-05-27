@@ -9,4 +9,10 @@ RUN npm install
 
 COPY . .
 
-ENTRYPOINT [ "npm", "start" ]
+RUN npm run build
+
+RUN npm install -g .
+
+ENTRYPOINT [ "specmatic-insights-github-build-reporter" ]
+
+CMD []
