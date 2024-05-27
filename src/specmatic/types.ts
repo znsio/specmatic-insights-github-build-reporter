@@ -87,3 +87,16 @@ export const specmaticCentralRepoReportValidator =
 export type SpecmaticCentralRepoReportSpec = z.infer<
   typeof specmaticCentralRepoReportSpec
 >;
+
+export const buildMetaData = z.object({
+  org_id: z.string(),
+  branch_ref: z.string(),
+  branch_name: z.string(),
+  build_definition_id: z.string(),
+  build_id: z.string(),
+  repo_name: z.string(),
+  repo_id: z.string(),
+  repo_url: z.string()
+});
+
+export type BuildMetaData = z.infer<typeof buildMetaData>;

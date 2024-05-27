@@ -41,12 +41,12 @@ const postToSpecmaticInsights = async (
 
 (async () => {
   logInfoStep(`specmatic-insights-build-reporter@${packageJSON.version}`);
-  const { dryRun, noVerify, ...cliArgs } = getCliArgs();
-  const { specmaticInsightsHost } = cliArgs;
+  const { dryRun, noVerify, specmaticInsightsHost, buildMetaData, ...cliArgs } = getCliArgs();
 
   const report = await generateReport({
     ...(cliArgs as unknown as Record<string, string | undefined>),
     ...specmaticProperties(cliArgs),
+    buildMetaData
   });
 
   fs.writeFileSync(
