@@ -4,7 +4,7 @@ This package runs as part of your CI pipeline to ship [Specmatic](https://specma
 
 Please contact [Specmatic team](https://specmatic.in/contact-us/) for more info.
 
-## Docker Usage in GitHub Actions
+## Fetching the Workflow Definition ID
 ```yaml
 - name: Get Workflow Definition ID
   id: get_workflow_id
@@ -17,7 +17,13 @@ Please contact [Specmatic team](https://specmatic.in/contact-us/) for more info.
     workflow_id=$(echo "$response" | jq -r --arg workflow_name "$workflow_name" '.workflows[] | select(.name == $workflow_name) | .id')
     echo "Workflow ID: $workflow_id" # Debug print
     echo "workflow_id=$workflow_id" >> "$GITHUB_OUTPUT"
+```
+Note:
+  - The workflow ID is used to send the build report to Specmatic Insights.
+  - Please set up `GITHUB_ACCESS_TOKEN` as a fine grained personal access token with `Read access to actions and metadata` for `Repository permissions`. More details [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
 
+## Docker Usage in GitHub Actions
+```yaml
 - name: Run Specmatic Insights Github Build Reporter
   run: |
     docker run \
@@ -37,18 +43,6 @@ Please contact [Specmatic team](https://specmatic.in/contact-us/) for more info.
 
 ## Direct NPM Usage in GitHub Actions
 ```yaml
-- name: Get Workflow Definition ID
-  id: get_workflow_id
-  env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-  run: |
-    api_url="https://api.github.com/repos/${{ github.repository }}/actions/workflows"
-    workflow_name="${{ github.workflow }}"
-    response=$(curl -s -H "Authorization: token $GITHUB_TOKEN" $api_url)
-    workflow_id=$(echo "$response" | jq -r --arg workflow_name "$workflow_name" '.workflows[] | select(.name == $workflow_name) | .id')
-    echo "Workflow ID: $workflow_id" # Debug print
-    echo "workflow_id=$workflow_id" >> "$GITHUB_OUTPUT"
-
 - name: Run Specmatic Insights Github Build Reporter
   run: |
     npx specmatic-insights-github-build-reporter \
