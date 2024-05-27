@@ -16,6 +16,9 @@ jobs:
           node-version: 20
           cache: npm
 
+      - name: Docker Login
+        run: echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+
       - name: Read version from package.json
         id: read_version
         run: |
