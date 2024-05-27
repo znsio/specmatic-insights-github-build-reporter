@@ -9,7 +9,7 @@ Please contact [Specmatic team](https://specmatic.in/contact-us/) for more info.
 - name: Get Workflow Definition ID
   id: get_workflow_id
   env:
-    GITHUB_TOKEN: ${{ secrets.SPECMATIC_INSIGHTS_ACCESS_TOKEN }}
+    GITHUB_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
   run: |
     api_url="https://api.github.com/repos/${{ github.repository }}/actions/workflows"
     workflow_name="${{ github.workflow }}"
@@ -40,7 +40,7 @@ Please contact [Specmatic team](https://specmatic.in/contact-us/) for more info.
 - name: Get Workflow Definition ID
   id: get_workflow_id
   env:
-    GITHUB_TOKEN: ${{ secrets.SPECMATIC_INSIGHTS_ACCESS_TOKEN }}
+    GITHUB_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
   run: |
     api_url="https://api.github.com/repos/${{ github.repository }}/actions/workflows"
     workflow_name="${{ github.workflow }}"
