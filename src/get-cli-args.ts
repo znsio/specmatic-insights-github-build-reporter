@@ -26,7 +26,7 @@ const parseCliArgs = (cliArgs: string[]) => {
       type: "string",
       description: "Specmatic Insights host",
       group: "Specmatic Insights",
-      default: "https://insights.specmatic.in",
+      default: "https://insights.specmatic.io",
     })
     .option("srd", {
       alias: "specmatic-reports-dir",
@@ -115,7 +115,7 @@ const parseCliArgs = (cliArgs: string[]) => {
     .example([
       [
         "npx specmatic-insights-github-build-reporter" +
-          " --specmatic-insights-host=https://insights.specmatic.in" +
+          " --specmatic-insights-host=https://insights.specmatic.io" +
           " --specmatic-reports-dir=./build/reports/specmatic" +
           " --org-id=<YOUR_SPECMATIC_INSIGHTS_ORG_ID>" +
           " --branch-ref=refs/heads/main" +
