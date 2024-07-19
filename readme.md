@@ -1,8 +1,8 @@
 # Specmatic Insights Github Build Reporter
 
-This package runs as part of your CI pipeline to ship [Specmatic](https://specmatic.in/) reports to [Specmatic Insights](https://insights.specmatic.in/).
+This package runs as part of your CI pipeline to ship [Specmatic](https://specmatic.io/) reports to [Specmatic Insights](https://insights.specmatic.io/).
 
-Please contact [Specmatic team](https://specmatic.in/contact-us/) for more info.
+Please contact [Specmatic team](https://specmatic.io/contact-us/) for more info.
 
 ## Fetching the Workflow Definition ID
 ```yaml
@@ -29,7 +29,7 @@ Note:
     docker run \
       -v ${{ github.workspace }}:/workspace \
       znsio/specmatic-insights-github-build-reporter:latest \
-        --specmatic-insights-host https://insights.specmatic.in \
+        --specmatic-insights-host https://insights.specmatic.io \
         --specmatic-reports-dir /workspace/build/reports/specmatic \
         --org-id ${{ secrets.SPECMATIC_ORG_ID }} \
         --branch-ref ${{ github.ref }} \
