@@ -4,3 +4,5 @@ dist
 /build-report.html
 .DS_Store
 scratch
+.idea
+reports

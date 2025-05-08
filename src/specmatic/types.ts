@@ -16,7 +16,7 @@ const specmaticHTTPOperationBase = z.object({
 });
 
 const specmaticHTTPOperation = specmaticHTTPOperationBase.extend({
-  count: z.number(),
+  count: z.number().nullable().optional(),
 });
 
 const specmaticCoverageReportForHTTP = z.object({
