@@ -19,7 +19,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/node": "^20.8.9",
+    "@types/node": "^22.0.0",
     "@types/yargs": "^15.0.14",
     "eslint": "^8.52.0",
     "eslint-config-prettier": "^9.1.0",
