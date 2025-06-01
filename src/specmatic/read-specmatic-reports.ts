@@ -1,6 +1,6 @@
 import type { ZodType } from "zod";
 import * as yaml from "yaml";
-import { safelyReadFile, logInfoStep } from "../utils";
+import { safelyReadFile, logInfoStep, logErrorStep } from "../utils";
 import {
   specmaticCentralRepoReportValidator,
   specmaticCoverageReportValidator,
@@ -26,9 +26,9 @@ const readSpecmaticConfig = (configPath?: string): Record<string, any> | undefin
     // Prefer YAML parsing for .yaml/.yml files
     if (configPath.endsWith('.yaml') || configPath.endsWith('.yml')) {
       try {
-        const parsed = yaml.parse(content);
+        const yamlResult = yaml.parse(content);
         logInfoStep(`Parsed YAML config from ${configPath}`);
-        return parsed;
+        return yamlResult;
       } catch (yamlError) {
         // Fallback to JSON in case it's actually JSON with a YAML extension
         logInfoStep(`Failed to parse as YAML, trying JSON: ${yamlError}`);
@@ -37,9 +37,9 @@ const readSpecmaticConfig = (configPath?: string): Record<string, any> | undefin
     } else {
       // For .json or any other extension, try JSON first
       try {
-        const parsed = JSON.parse(content);
+        const jsonResult = JSON.parse(content);
         logInfoStep(`Parsed JSON config from ${configPath}`);
-        return parsed;
+        return jsonResult;
       } catch (jsonError) {
         // Fallback to YAML in case it's actually YAML with a JSON extension
         logInfoStep(`Failed to parse as JSON, trying YAML: ${jsonError}`);
@@ -47,7 +47,7 @@ const readSpecmaticConfig = (configPath?: string): Record<string, any> | undefin
       }
     }
   } catch (e) {
-    logInfoStep(`Failed to parse specmatic config from ${configPath} as either JSON or YAML:`, e);
+    logErrorStep(`Failed to parse specmatic config from ${configPath} as either JSON or YAML:`, e);
     return undefined;
   }
 };
