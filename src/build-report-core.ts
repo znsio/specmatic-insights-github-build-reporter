@@ -25,6 +25,9 @@ export const buildReportCoreValidator = z.object({
       })
     )
     .optional(),
+  // Enhanced build reports with test data and configuration
+  specmaticTestData: z.record(z.any()).optional(),
+  specmaticConfig: z.record(z.any()).optional(),
 });
 
 export type BuildReportCore = z.infer<typeof buildReportCoreValidator>;

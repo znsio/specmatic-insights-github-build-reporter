@@ -19,6 +19,7 @@ const ensureNonEmptyValue = (value: string, key: string) => {
   }
 };
 
+
 const parseCliArgs = (cliArgs: string[]) => {
   const parsed = yargs(cliArgs)
     .option("sih", {
@@ -174,6 +175,27 @@ const parseCliArgs = (cliArgs: string[]) => {
     file.includes("central_contract_repo_report.json")
   );
 
+  // Look for test data in the HTML assets directory
+  const htmlAssetsDir = path.join(reportsDir, "html", "assets");
+  
+  // Find test data file if the directory exists
+  const testDataFile = fs.existsSync(htmlAssetsDir) 
+    ? fs.readdirSync(htmlAssetsDir).find(file => file === "test_data.json")
+    : undefined;
+  
+  // Look for specmatic config in common locations
+  const configLocations = [
+    path.join(process.cwd(), "specmatic.yaml"),
+    path.join(process.cwd(), "specmatic.yml"),
+    path.join(process.cwd(), "specmatic.json"),
+    path.join(process.cwd(), "src", "test", "resources", "specmatic.yaml"),
+    path.join(process.cwd(), "src", "test", "resources", "specmatic.yml"),
+    path.join(process.cwd(), "src", "test", "resources", "specmatic.json"),
+  ];
+
+  // Find the first existing specmatic config file using array methods
+  const specmaticConfigFile = configLocations.find(location => fs.existsSync(location));
+
   return {
     specmaticInsightsHost: parsed.sih,
     ...(coverageReport
@@ -184,6 +206,12 @@ const parseCliArgs = (cliArgs: string[]) => {
       : {}),
     ...(centralRepoReport
       ? { specmaticCentralRepoReport: path.join(reportsDir, centralRepoReport) }
+      : {}),
+    ...(testDataFile
+      ? { specmaticTestData: path.join(htmlAssetsDir, testDataFile) }
+      : {}),
+    ...(specmaticConfigFile
+      ? { specmaticConfig: specmaticConfigFile }
       : {}),
     dryRun: parsed.dr,
     noVerify: parsed.nv,
