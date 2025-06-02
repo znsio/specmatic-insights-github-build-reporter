@@ -55,3 +55,36 @@ Note:
       --repo-id ${{ github.repository_id }} \
       --repo-url ${{ github.event.repository.html_url }}
 ```
+
+## Testing locally
+
+Before you're able to test locally, you'll have to link the `specmatic-insights-github-build-reporter` package to your local `npm` registry.
+
+Run the following command in the root directory of the `specmatic-insights-github-build-reporter` package:
+```bash
+npm link
+```
+
+Next, link the `specmatic-insights-github-build-reporter` package to your local `npm` registry in the root directory of your specmatic project, e.g. `specmatic-order-api-java`:
+```bash
+npm link specmatic-insights-github-build-reporter
+```
+
+Now you can run the build reporter locally using the following command:
+```bash
+npx specmatic-insights-github-build-reporter \
+  --org-id <org-id> \
+  --branch-ref <branch-ref> \
+  --branch-name <branch-name> \
+  --build-definition-id <build-definition-id> \
+  --build-id <build-id> \
+  --repo-name <repo-name> \
+  --repo-id <repo-id> \
+  --repo-url <repo-url>
+```
+
+To revert the changes, run the following commands:
+```bash
+npm unlink specmatic-insights-github-build-reporter
+npm unlink
+```
