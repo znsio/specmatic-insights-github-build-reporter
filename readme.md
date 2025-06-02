@@ -70,9 +70,10 @@ Next, link the `specmatic-insights-github-build-reporter` package to your local 
 npm link specmatic-insights-github-build-reporter
 ```
 
-Now you can run the build reporter locally using the following command:
+Now you can run the build reporter locally to send builds to your local insights server using the following command:
 ```bash
 npx specmatic-insights-github-build-reporter \
+  --specmatic-insights-host=http://localhost:8080 \
   --org-id <org-id> \
   --branch-ref <branch-ref> \
   --branch-name <branch-name> \
