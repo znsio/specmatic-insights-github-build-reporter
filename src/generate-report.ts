@@ -22,10 +22,7 @@ export default async ({
   buildMetaData: BuildMetaData;
 }): Promise<BuildReportCore> => ({
     orgId: buildMetaData.org_id, 
-    branch: buildMetaData.branch_ref,
     branchName: buildMetaData.branch_name,
-    buildDefinitionId: buildMetaData.build_definition_id,
-    buildId: buildMetaData.build_id,
     repo: buildMetaData.repo_name,
     repoId: buildMetaData.repo_id,
     repoUrl: buildMetaData.repo_url,

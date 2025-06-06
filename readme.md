@@ -20,7 +20,7 @@ Please contact [Specmatic team](https://specmatic.io/contact-us/) for more info.
 ```
 Note:
   - The workflow ID is used to send the build report to Specmatic Insights.
-  - Please set up `GITHUB_ACCESS_TOKEN` as a fine grained personal access token with `Read access to actions and metadata` for `Repository permissions`. More details [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+  - Please set up `GITHUB_ACCESS_TOKEN` as a fine-grained personal access token with `Read access to actions and metadata` for `Repository permissions`. More details [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
 
 ## Docker Usage in GitHub Actions
 ```yaml
@@ -32,10 +32,7 @@ Note:
         --specmatic-insights-host https://insights.specmatic.io \
         --specmatic-reports-dir /workspace/build/reports/specmatic \
         --org-id ${{ secrets.SPECMATIC_ORG_ID }} \
-        --branch-ref ${{ github.ref }} \
         --branch-name ${{ github.ref_name }} \
-        --build-definition-id ${{ steps.get_workflow_id.outputs.workflow_id }} \
-        --build-id ${{ github.run_id }} \
         --repo-name ${{ github.event.repository.name }} \
         --repo-id ${{ github.repository_id }} \
         --repo-url ${{ github.event.repository.html_url }}
@@ -47,10 +44,7 @@ Note:
   run: |
     npx specmatic-insights-github-build-reporter \
       --org-id ${{ secrets.SPECMATIC_ORG_ID }} \
-      --branch-ref ${{ github.ref }} \
       --branch-name ${{ github.ref_name }} \
-      --build-definition-id ${{ steps.get_workflow_id.outputs.workflow_id }} \
-      --build-id ${{ github.run_id }} \
       --repo-name ${{ github.event.repository.name }} \
       --repo-id ${{ github.repository_id }} \
       --repo-url ${{ github.event.repository.html_url }}
@@ -75,10 +69,7 @@ Now you can run the build reporter locally to send builds to your local insights
 npx specmatic-insights-github-build-reporter \
   --specmatic-insights-host=http://localhost:8080 \
   --org-id <org-id> \
-  --branch-ref <branch-ref> \
   --branch-name <branch-name> \
-  --build-definition-id <build-definition-id> \
-  --build-id <build-id> \
   --repo-name <repo-name> \
   --repo-id <repo-id> \
   --repo-url <repo-url>
