@@ -1,6 +1,6 @@
 {
   "name": "specmatic-insights-github-build-reporter",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "",
   "main": "index.js",
   "bin": "dist/src/index.js",
@@ -16,6 +16,7 @@
   "dependencies": {
     "prettier": "^3.2.5",
     "yargs": "^15.4.1",
+    "yaml": "^2.3.4",
     "zod": "^3.22.4"
   },
   "devDependencies": {
