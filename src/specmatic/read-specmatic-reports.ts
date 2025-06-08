@@ -8,7 +8,7 @@ import {
 } from "./types";
 
 // Read specmatic config - parses the file based on extension (YAML or JSON)
-const readSpecmaticConfig = (configPath?: string): Record<string, any> | undefined => {
+const readSpecmaticConfig = (configPath?: string): Record<string, never> | undefined => {
   if (!configPath) {
     logInfoStep("No specmatic config path provided");
     return undefined;

@@ -3,17 +3,14 @@ import { resolve } from "path/posix";
 import { z } from "zod";
 
 export const logInfoStep = (...details: unknown[]) => {
-  // eslint-disable-next-line no-console
   console.log("\x1b[36m%s\x1b[0m", "  •", ...details);
 };
 
 export const logSuccessStep = (...details: unknown[]) => {
-  // eslint-disable-next-line no-console
   console.log("\x1b[32m%s\x1b[0m", "  ✓", ...details);
 };
 
 export const logErrorStep = (...details: unknown[]) => {
-  // eslint-disable-next-line no-console
   console.log("\x1b[31m%s\x1b[0m", "  ×", ...details);
 };
 
@@ -34,6 +31,7 @@ export const readEnvVar = (name: string) => {
   const value = process.env[name];
   try {
     return z.string().parse(value);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     logErrorStep(`Couldn't read environment variable: ${name}`);
     throw new Error(`Couldn't read environment variable: ${name}`);

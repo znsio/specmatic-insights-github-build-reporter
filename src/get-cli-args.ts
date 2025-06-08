@@ -1,13 +1,12 @@
 import yargs from "yargs/yargs";
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 import { URL } from "url";
 import fs from "fs";
 import path from "path";
 
 const ensureValidUrl = (url: string, key: string) => {
   try {
-    // eslint-disable-next-line no-new
     new URL(url);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     throw new Error(`Invalid URL for "${key}": "${url}"`);
   }
@@ -20,8 +19,8 @@ const ensureNonEmptyValue = (value: string, key: string) => {
 };
 
 
-const parseCliArgs = (cliArgs: string[]) => {
-  const parsed = yargs(cliArgs)
+const parseCliArgs = async (cliArgs: string[]) => {
+  const parsed = await yargs(cliArgs)
     .option("sih", {
       alias: "specmatic-insights-host",
       type: "string",

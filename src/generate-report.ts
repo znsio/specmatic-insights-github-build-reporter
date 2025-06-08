@@ -17,8 +17,8 @@ export default async ({
   specmaticCentralRepoReport?: SpecmaticCentralRepoReportSpec | undefined;
   specmaticStubUsage?: SpecmaticStubUsageReport | undefined;
   specmaticCoverage?: SpecmaticCoverageReport | undefined;
-  specmaticTestData?: Record<string, any> | undefined;
-  specmaticConfig?: Record<string, any> | undefined;
+  specmaticTestData?: Record<string, never> | undefined;
+  specmaticConfig?: Record<string, never> | undefined;
   buildMetaData: BuildMetaData;
 }): Promise<BuildReportCore> => ({
     orgId: buildMetaData.org_id, 
